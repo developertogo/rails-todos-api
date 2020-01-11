@@ -1,24 +1,50 @@
 # README
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+Adopted from https://scotch.io/tutorials/build-a-restful-json-api-with-rails-5-part-one
 
-Things you may want to cover:
+Ran these `rails` commands:
+```
+$ rails new todos-api --api -T
+$ rails g rspec:install
+$ rails g model Todo title:string created_by:string
+$ rails g model Item name:string done:boolean todo:references
+$ rails db:migrate
+$ rails g controller Todos
+$ rails g controller Items
+$ rails routes
+$ rails s
+```
 
-* Ruby version
+Execute RSpec tests:
+```
+$ bundle exec rspec
+```
 
-* System dependencies
+Test REST APIs:
+```
+# GET /todos
+$ http :3000/todos
 
-* Configuration
+# POST /todos
+$ http POST :3000/todos title=Swim-1 created_by=1
 
-* Database creation
+# PUT /todos/:id
+$ http PUT :3000/todos/1 title=Swim-2
 
-* Database initialization
+# DELETE /todos/:id
+$ http DELETE :3000/todos/1
+```
 
-* How to run the test suite
+```
+# GET /todos/:todo_id/items
+$ http :3000/todos/1/items
 
-* Services (job queues, cache servers, search engines, etc.)
+# POST /todos/:todo_id/items
+$ http POST :3000/todos/1/items name='49ers' done=false
 
-* Deployment instructions
+# PUT /todos/:todo_id/items/:id
+$ http PUT :3000/todos/1/items/1 done=true
 
-* ...
+# DELETE /todos/:todo_id/items/1
+$ http DELETE :3000/todos/1/items/1
+```
